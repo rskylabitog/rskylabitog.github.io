@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Record System</title>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    </head>
+
+<body>
+    <div class="container">
+        <h2>Student Record System</h2>      
+            <div class="row">       
+                <div class="col-md-6">
+                    <form id="student-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter student name">                   
+                        </div>
+          
+                        <div class="form-group">
+                            <label for="course">Course:</label>        
+                            <input type="text" class="form-control" id="course" placeholder="Enter student course">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="section">Section:</label>
+                            <input type="text" class="form-control" id="section" placeholder="Enter student section">
+                        </div>
+                    
+                        <button type="button" id="save-record" class="btn btn-primary">Save Record</button>
+                    </form>
+                </div>
+      
+                <div class="col-md-6">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Section</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="student-records">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#save-record").click(function() {
+                var name = $("#name").val();
+                var course = $("#course").val();
+                var section = $("#section").val();
+
+                if (name === "" || course === "" || section === "") {
+                    alert("Please fill in all required fields");
+                    return;
+                }
+
+                var newRow = "<tr>";
+                newRow += "<td>" + name + "</td>";
+                newRow += "<td>" + course + "</td>";
+                newRow += "<td>" + section + "</td>";
+                newRow += "<td><button class='btn btn-danger delete-record'>DELETE</button></td>";
+                newRow += "</tr>";
+
+                // Append the new row to the table
+                $("#student-records").append(newRow);
+
+                // Clear the input fields
+                $("#name").val("");
+                $("#course").val("");
+                $("#section").val("");
+            });
+
+            // Handle delete record button click
+            $(document).on("click", ".delete-record", function() {
+                $(this).closest("tr").remove();
+            });
+        });
+    </script>
+</body>
+</html>
